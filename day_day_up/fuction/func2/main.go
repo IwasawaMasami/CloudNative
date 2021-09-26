@@ -16,6 +16,7 @@ func f3(x int,y int)int {
 func main() {
 	f1()
 	f2("理想")
-	fmt.Println(f3(100,200))
+	ret := f3(100,200)
+	fmt.Println(ret)
 	
 }
