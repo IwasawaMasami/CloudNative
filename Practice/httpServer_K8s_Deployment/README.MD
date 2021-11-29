@@ -12,8 +12,8 @@
 来尝试用Service, Ingress将你的服务发布给集群外部的调用方吧
 在第一部分的基础.上提供更加完备的部署spec，包括(不限于)
 ```
-●Service
-●Ingress
+●Service ==> ok
+●Ingress 
 可以考虑的细节
 ●如何确保整个应用的高可用
 ●如何通过证书保证httpServer的通讯安全
