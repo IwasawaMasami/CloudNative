@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: httpserver
+  labels: 
+    app: httpserver
+spec:
+  terminationGracePeriodSeconds: 60 
+  containers:
+    - name: myhttpserver
+      image: tookizhang/myhttpserver:k8s
+      imagePullPolicy: IfNotPresent
+      args:
+        - /bin/sh
+        - -c
+        - exec ./myHttpServer #shell启动的是单进程，可以在shell 中启动二进制的命令前面加一个exec，这个命令可以让二进制启动的进程代替shell成为主进程，从而业务进程可以接收到SIGTERM
+      resources:              ##CPU内存限制
+        requests:
+          cpu: 2
+          memory: 2048Mi
+        limits:
+          cpu: 2
+          memory: 2048Mi
+      lifecycle:               ##优雅启动
+        postStart:
+          exec:
+           command: ["/bin/sh", "-c", "echo Hello from the postStart handler > /go/src/app/message"]
+        preStop:             ##优雅终止
+          exec:
+           command: [ "/bin/sh","-c","kill -9 1"]
+      livenessProbe:             ##liveness探活
+        httpGet:
+          ### this probe will fail with 404 error code
+          ### only httpcode between 200-400 is retreated as success
+          path: /getstatuscode
+          port: 8090
+        initialDelaySeconds: 30 #30秒以后进行liveness探活
+        periodSeconds: 5
+      readinessProbe:             ##readiness探活
+        httpGet:
+          ### this probe will fail with 404 error code
+          ### only httpcode between 200-400 is retreated as success
+          path: /healthz
+          port: 8090
+        initialDelaySeconds: 15 #15秒以后进行readiness探活
+        periodSeconds: 5
+        successThreshold: 2

@@ -55,7 +55,7 @@ func Getenv(w http.ResponseWriter, r *http.Request) {
 	} else {
 		io.WriteString(w, "version is nil\n")
 	}
-	fmt.Println(goversion)   
+	fmt.Println(goversion)
 	count++
 }
 
