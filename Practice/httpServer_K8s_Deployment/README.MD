@@ -3,7 +3,7 @@
 httpServer_pod.yaml ==> httpserver部署文件
 httpServer_service_clusterip.yaml ==> httpserver服务发布文件
 httpServer_service_nodeport.yaml ==> httpserver服务发布文件
-httpServer_secret.yaml ==> ingress证书文件
+httpServer_secret.yaml ==> ingress 证书文件
 ```
 **要求：**
 编写 Kubernetes 部署脚本将 httpserver 部署到 kubernetes 集群，以下是你可以思考的维度
