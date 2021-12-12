@@ -1,0 +1,6 @@
+**service服务发布重点:**
+service ip无法被ping通，没有被任何设备绑定和响应，是因为service的服务发布ip只存在于iptables中，但是可以访问，因为数据包由iptables处理。
+
+service中的nodeport访问方式主要是提供集群之外的访问方式，通过监听node节点的port提供访问服务。
+
+service中的Load balancer的访问方式主要通过外部负载均衡器做nat转发对应node节点的ip和对应监听的port。

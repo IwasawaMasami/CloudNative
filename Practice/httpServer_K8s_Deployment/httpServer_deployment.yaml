@@ -5,7 +5,7 @@ metadata:
   labels: 
     app: httpserver
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: httpserver
@@ -30,13 +30,13 @@ spec:
             limits:
               cpu: 2
               memory: 2048Mi
-          lifecycle:           ##优雅启动
-            postStart:
-              exec:
-              command: ["/bin/sh", "-c", "echo Hello from the postStart handler > /go/src/app/message"]
-            preStop:             ##优雅终止
-              exec:
-              command: [ "/bin/sh","-c","kill -9 1"]
+#          lifecycle:           ##优雅启动
+#           postStart:
+#             exec:
+#             command: ["/bin/sh", "-c", "echo Hello from the postStart handler > /go/src/app/message"]
+#           preStop:             ##优雅终止
+#             exec:
+#             command: [ "/bin/sh","-c","kill -9 1"]
           livenessProbe:             ##liveness探活
             httpGet:
               ### this probe will fail with 404 error code
